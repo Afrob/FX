@@ -28,13 +28,11 @@ mse={}
 LowLeaves=5
 HighLeaves=1000
 
-#Ermitteln des optimalen Lambda
-
 
 #Bilden der Bäume über alle Daten
 for i in np.arange(0,nTree,1):
     Train=M[(N-KForest)-i*t-t:(N-KForest)-i*t]          #Trainingsset der Bäume
-    Test=M[(N-KForest)-i*t:(N-KForest)-i*t+t+1]             #Testset der Bäume hat Größe t
+    Test=M[(N-KForest)-i*t:(N-KForest)-i*t+t+1]         #Testset der Bäume hat Größe t
     XTrain=Train[Train.columns[:len(Train.columns)-1]]  #Parameter des Trainigssets
     YTrain=Train[Train.columns[len(Train.columns)-1]]   #Zielwert des Treiningssets
     XTest=Test[Test.columns[:len(Test.columns)-1]]      #Parameter des Testsets
