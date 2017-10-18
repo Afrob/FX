@@ -169,4 +169,3 @@ while j<3:
 print(lambStar)
 print(alphaStar)
 print(ErrCVStar)
-    
