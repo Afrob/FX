@@ -128,7 +128,8 @@ while j<3:
         if alpha!=0:
             ErrCV=0
             #Durchgehen der einzelnen Random Forests mit dem jeweiligen Alpha
-            for i in np.arange(0,nAlpha,1):
+            i = 0
+            while i <= nAlpha:
                 Test = M[(N - KForest) - i*t:N - i * t + 1]         #Test=M[(N-KForest)-i*t:(N-KForest)-i*t+KForest+1]#Durchgehen der einzelnen Bäume des Random Forests zur Ermittlung des ErrCV
                 XTest = Test[Test.columns[:len(Test.columns) - 1]]  # Parameter des Testsets
                 YTest = Test[Test.columns[len(Test.columns) - 1]]   # Zielwert des Testsets
@@ -138,15 +139,18 @@ while j<3:
                 #Prediction des Testsets. Später die Maschine
                 #In For-Schleife vorhersage aus den einzelnen Bäumen, um Alpha diskontiert
                 #Endgültige Vorhersage mittels YPredictAlpha
-                for j in np.arange(0,nForest,1):
+                j = 0
+                while j <= nForest:
                     YPredict = Alpha**j*Tree[j+i, depthstar[j+i]].predict(XTest) #Vorhersage aus Baum um Alpha diskontiert
                     YPredictSum=YPredictSum+YPredict
                     alphaSum=alphaSum+Alpha**j
+                    j = j+1
 
                 YPredictAlpha=YPredictSum/alphaSum #Endgültige Vorhersage
 
                 #Ermitteln des ErrCV für das jeweilige Alpha
                 ErrCV=ErrCV+mean_squared_error(YPredictAlpha,YTest)
+                i = i+1
 
             #Speichern des Alpha mit dem geringsten ErrCV
             if ErrCV<ErrCVStar:
